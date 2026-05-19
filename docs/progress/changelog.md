@@ -2,6 +2,17 @@
 
 ## 2026-05-19
 
+### Added in v0.6-live-workspace-plan
+
+- 新增产品方向修正文档：`pivot-live-consultation-copilot.md`。
+- 新增实时谈案 Copilot PRD：`live-consultation-copilot-prd-v0.6.md`。
+- 更新决策日志，记录从咨询后整理转向实时谈案 Copilot 的原因。
+
+### Changed in v0.6-live-workspace-plan
+
+- 旧版咨询后整理能力降级为咨询结束后的沉淀模块。
+- 新主线调整为：语音转记、实时案情要点、追问建议、法条推送、方案草稿。
+
 ### Added in v0.5-feedback-loop
 
 - 原型每个 AI 产物增加律师反馈按钮：可用 / 需修改 / 有风险。
