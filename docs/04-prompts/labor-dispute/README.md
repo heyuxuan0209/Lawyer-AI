@@ -9,6 +9,7 @@
 - `material-checklist.prompt.md`：待补材料清单
 - `initial-legal-analysis.prompt.md`：初步法律分析
 - `legal-opinion-draft.prompt.md`：法律意见书草稿
+- `output-templates.md`：MVP 输出模板汇总
 
 原则：
 
@@ -16,4 +17,3 @@
 - 不直接承诺胜诉率。
 - 不伪造法条和案例。
 - 法律依据不确定时标注“需进一步核验”。
-
