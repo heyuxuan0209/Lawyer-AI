@@ -513,6 +513,12 @@ button:disabled {
   gap: 8px;
 }
 
+.outputs-hint {
+  margin-bottom: 9px !important;
+  color: #64748b !important;
+  font-size: 11px !important;
+}
+
 .outputs button {
   border: 1px solid var(--line);
   border-radius: 10px;

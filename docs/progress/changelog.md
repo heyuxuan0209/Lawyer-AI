@@ -2,6 +2,17 @@
 
 ## 2026-05-19
 
+### Added in v0.8-polish-for-lawyer-demo
+
+- 新增律师演示验证清单。
+- 会后产物区增加说明，明确结束咨询后点击产物按钮查看内容。
+
+### Changed in v0.8-polish-for-lawyer-demo
+
+- 优化实时咨询脚本，让客户表达更接近真实咨询场景。
+- 法条卡文案改为更克制的“可能相关规则”表达。
+- 方案草稿随对话推进更明显。
+
 ### Added in v0.7-live-static-prototype
 
 - 新增实时谈案 Copilot 静态原型。
