@@ -2,6 +2,19 @@
 
 ## 2026-05-19
 
+### Added in v0.7-live-static-prototype
+
+- 新增实时谈案 Copilot 静态原型。
+- 支持劳动争议客户 / 律师分角色模拟转写。
+- 右侧实时更新案情要点、追问建议、模拟法条卡和方案草稿。
+- 咨询结束后生成咨询纪要、材料清单、方案摘要和模拟法律意见书格式样例。
+- 新增 `live-static-prototype-v0.7.md`。
+
+### Changed in v0.7-live-static-prototype
+
+- 更新版本索引，将当前版本推进到 `v0.7-live-static-prototype`。
+- 法律意见书明确定位为模拟格式样例，未经律师审核不可发送客户。
+
 ### Added in v0.6-live-workspace-plan
 
 - 新增产品方向修正文档：`pivot-live-consultation-copilot.md`。
