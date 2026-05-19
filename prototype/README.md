@@ -8,6 +8,18 @@
 prototype/labor-consultation-mvp/
 ```
 
+当前推荐演示入口：
+
+```text
+prototype/index.html
+```
+
+当前主线原型：
+
+```text
+prototype/live-consultation-copilot/index.html
+```
+
 形态：
 
 - Next.js 或 Vite 单页应用
@@ -15,4 +27,3 @@ prototype/labor-consultation-mvp/
 - 静态示例数据
 - 粘贴咨询文本
 - 生成模拟输出
-
