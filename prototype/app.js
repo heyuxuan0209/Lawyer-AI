@@ -142,10 +142,12 @@ const steps = [
 const startBtn = document.querySelector("#startBtn");
 const endBtn = document.querySelector("#endBtn");
 const resetBtn = document.querySelector("#resetBtn");
+const feedbackModeBtn = document.querySelector("#feedbackModeBtn");
 const liveFeed = document.querySelector("#liveFeed");
 const sessionStatus = document.querySelector("#sessionStatus");
 const recordDot = document.querySelector("#recordDot");
 const timer = document.querySelector("#timer");
+const modeHint = document.querySelector("#modeHint");
 const currentFocus = document.querySelector("#currentFocus");
 const currentFocusDesc = document.querySelector("#currentFocusDesc");
 const factGrid = document.querySelector("#factGrid");
@@ -160,6 +162,7 @@ let seconds = 0;
 let timerId = null;
 let streamId = null;
 let hasEnded = false;
+let feedbackMode = false;
 const feedbackState = {
   question: null,
   law: null,
@@ -240,8 +243,10 @@ const outputDocs = {
 startBtn.addEventListener("click", startSession);
 endBtn.addEventListener("click", endSession);
 resetBtn.addEventListener("click", resetSession);
+feedbackModeBtn.addEventListener("click", toggleFeedbackMode);
 outputs.addEventListener("click", handleOutputClick);
 feedbackRows.forEach((row) => row.addEventListener("click", handleFeedbackClick));
+setFeedbackMode(false);
 
 function startSession() {
   liveFeed.innerHTML = "";
@@ -384,6 +389,7 @@ function handleOutputClick(event) {
 }
 
 function handleFeedbackClick(event) {
+  if (!feedbackMode) return;
   const target = event.target;
   if (!(target instanceof HTMLButtonElement)) return;
   const row = target.closest(".feedback-row");
@@ -413,6 +419,20 @@ function appendFeedbackNote(key, value) {
   `;
   liveFeed.appendChild(article);
   article.scrollIntoView({ behavior: "smooth", block: "end" });
+}
+
+function toggleFeedbackMode() {
+  setFeedbackMode(!feedbackMode);
+}
+
+function setFeedbackMode(nextValue) {
+  feedbackMode = nextValue;
+  document.body.classList.toggle("feedback-mode", feedbackMode);
+  feedbackModeBtn.textContent = feedbackMode ? "反馈模式：开" : "反馈模式：关";
+  feedbackModeBtn.setAttribute("aria-pressed", String(feedbackMode));
+  modeHint.textContent = feedbackMode
+    ? "反馈模式已开启：演示时可让律师直接标记追问、法条卡和方案草稿是否有用。"
+    : "演示模式：不接真实麦克风。点击“开始咨询”后，客户和律师对话会自动流式输出，右侧同步更新。";
 }
 
 function appendOutputDoc(doc) {

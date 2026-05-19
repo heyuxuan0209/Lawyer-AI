@@ -21,6 +21,7 @@
         <span id="sessionStatus">未开始</span>
       </div>
       <div class="top-actions">
+        <button class="secondary feedback-toggle" id="feedbackModeBtn" aria-pressed="false">反馈模式：关</button>
         <button class="secondary" id="resetBtn">重置</button>
         <button class="primary" id="startBtn">开始咨询</button>
         <button class="danger" id="endBtn" disabled>结束咨询</button>
@@ -79,7 +80,7 @@
         </div>
 
         <div class="consult-controls">
-          <div class="hint">演示模式：不接真实麦克风。点击“开始咨询”后，客户和律师对话会自动流式输出，右侧同步更新。</div>
+          <div class="hint" id="modeHint">演示模式：不接真实麦克风。点击“开始咨询”后，客户和律师对话会自动流式输出，右侧同步更新。</div>
         </div>
       </section>
 
@@ -151,7 +152,7 @@
           <p class="disclaimer">法律意见书为模拟格式样例，仅用于向律师确认结构。未经律师审核，不可发送客户。</p>
         </section>
 
-        <section class="assist-card">
+        <section class="assist-card feedback-guide">
           <div class="card-title">给律师看的验证问题</div>
           <div class="demo-questions">
             <p>1. 右侧提示是在帮你谈案，还是打断你谈案？</p>

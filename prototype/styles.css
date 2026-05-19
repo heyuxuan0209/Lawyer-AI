@@ -136,6 +136,12 @@ button:disabled {
   color: #475569;
 }
 
+.feedback-toggle[aria-pressed="true"] {
+  background: var(--blue-soft);
+  color: var(--blue);
+  box-shadow: inset 0 0 0 1px #bfdbfe;
+}
+
 .danger {
   background: var(--rose-soft);
   color: var(--rose);
@@ -516,10 +522,14 @@ button:disabled {
 }
 
 .feedback-row {
-  display: grid;
+  display: none;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 6px;
   margin-top: 10px;
+}
+
+.feedback-mode .feedback-row {
+  display: grid;
 }
 
 .feedback-row button {
@@ -619,8 +629,20 @@ button:disabled {
 }
 
 .demo-questions {
-  display: grid;
+  display: none;
   gap: 8px;
+}
+
+.feedback-mode .demo-questions {
+  display: grid;
+}
+
+.feedback-guide {
+  display: none;
+}
+
+.feedback-mode .feedback-guide {
+  display: block;
 }
 
 .demo-questions p {
@@ -646,7 +668,7 @@ button:disabled {
 
   .brand-subtitle,
   .session-status,
-  .secondary {
+  .top-actions .secondary:not(.feedback-toggle) {
     display: none;
   }
 
