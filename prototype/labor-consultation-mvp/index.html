@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>劳动争议咨询助手 MVP</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark">律</div>
+        <div>
+          <div class="brand-title">律师谈案助手</div>
+          <div class="brand-subtitle">劳动争议付费咨询 MVP</div>
+        </div>
+      </div>
+      <div class="search">
+        <span>搜索客户、争议类型、材料</span>
+      </div>
+      <div class="top-actions">
+        <button class="ghost-button">导出草稿</button>
+        <button class="primary-button" id="newConsultBtn">新建咨询</button>
+        <div class="avatar">何</div>
+      </div>
+    </header>
+
+    <main class="workspace">
+      <aside class="left-panel">
+        <div class="panel-search">搜索咨询...</div>
+
+        <section class="thread-section">
+          <div class="section-label urgent">待律师确认</div>
+          <button class="thread-card active" data-thread="zhang">
+            <div class="thread-head">
+              <span class="thread-title">张某｜违法解除</span>
+              <span class="badge danger">付费</span>
+            </div>
+            <p>42 分钟咨询 · 待确认意见书</p>
+            <div class="thread-tags">
+              <span>违法解除</span>
+              <span>赔偿金</span>
+            </div>
+          </button>
+        </section>
+
+        <section class="thread-section">
+          <div class="section-label warning">待补材料</div>
+          <button class="thread-card" data-thread="li">
+            <div class="thread-head">
+              <span class="thread-title">李某｜拖欠工资</span>
+              <span class="badge">待补</span>
+            </div>
+            <p>微信咨询 · 缺工资流水</p>
+            <div class="thread-tags">
+              <span>欠薪</span>
+              <span>未签合同</span>
+            </div>
+          </button>
+        </section>
+
+        <section class="thread-section">
+          <div class="section-label done">已结束</div>
+          <button class="thread-card" data-thread="wang">
+            <div class="thread-head">
+              <span class="thread-title">王某｜加班费</span>
+              <span class="badge muted">留档</span>
+            </div>
+            <p>电话咨询 · 已生成纪要</p>
+            <div class="thread-tags">
+              <span>加班费</span>
+              <span>考勤</span>
+            </div>
+          </button>
+        </section>
+      </aside>
+
+      <section class="center-panel">
+        <div class="case-header">
+          <div>
+            <div class="case-kicker">咨询线程 LD-2026-001</div>
+            <h1>张某与某科技公司违法解除争议</h1>
+            <div class="case-meta">
+              <span>劳动争议</span>
+              <span>付费咨询</span>
+              <span>咨询时长 42 分钟</span>
+              <span>状态：待律师确认</span>
+            </div>
+          </div>
+          <div class="status-pill">AI 草稿</div>
+        </div>
+
+        <div class="phase-bar">
+          <div class="phase done">原始记录</div>
+          <div class="phase done">咨询纪要</div>
+          <div class="phase done">案情结构化</div>
+          <div class="phase active">意见书草稿</div>
+          <div class="phase">律师确认</div>
+        </div>
+
+        <div class="feed" id="feed">
+          <article class="message raw">
+            <div class="message-head">
+              <span>原始咨询记录</span>
+              <em>客户陈述 · 已脱敏示例</em>
+            </div>
+            <p>
+              我 2023 年 3 月入职一家科技公司，做运营，工资每月 12000。上个月公司说我绩效不达标，让我直接不用来了，没有给正式解除通知，也没有让我签过绩效改进计划。工资只发到 4 月底，也没说赔偿。我有劳动合同、工资流水，还有一些微信聊天记录，但是考勤记录不完整。我想知道能不能要违法解除赔偿金，还有年假和加班费。
+            </p>
+          </article>
+
+          <article class="message ai">
+            <div class="message-head">
+              <span>咨询纪要</span>
+              <em>AI 生成 · 待律师复核</em>
+            </div>
+            <h3>客户主要诉求</h3>
+            <ul>
+              <li>判断公司以绩效不达标为由解除劳动关系是否合法。</li>
+              <li>确认能否主张违法解除赔偿金。</li>
+              <li>确认是否可一并主张未休年假工资和加班费。</li>
+            </ul>
+            <h3>事实经过</h3>
+            <p>客户称其于 2023 年 3 月入职某科技公司，岗位为运营，月工资 12000 元。2026 年 4 月，公司以绩效不达标为由口头通知其不用再到岗，未提供书面解除通知，客户称此前未签署绩效改进计划。</p>
+          </article>
+
+          <article class="message ai">
+            <div class="message-head">
+              <span>案情结构化</span>
+              <em>关键事实与缺口</em>
+            </div>
+            <div class="mini-grid">
+              <div>
+                <label>争议类型</label>
+                <strong>违法解除 / 赔偿金</strong>
+              </div>
+              <div>
+                <label>入职时间</label>
+                <strong>2023 年 3 月</strong>
+              </div>
+              <div>
+                <label>解除时间</label>
+                <strong>2026 年 4 月</strong>
+              </div>
+              <div>
+                <label>工资标准</label>
+                <strong>12000 元/月</strong>
+              </div>
+            </div>
+            <p class="risk-note">需进一步确认：是否存在书面解除通知、绩效制度公示记录、绩效考核结果、客户签收记录、完整考勤和加班审批。</p>
+          </article>
+
+          <article class="message lawyer">
+            <div class="message-head">
+              <span>律师补充备注</span>
+              <em>可编辑区域</em>
+            </div>
+            <textarea id="lawyerNote">重点关注：公司是否能举证绩效不达标，以及解除程序是否合规。意见书里不要直接写“必然违法解除”，使用“存在被认定为违法解除的风险”。</textarea>
+          </article>
+
+          <article class="message ai">
+            <div class="message-head">
+              <span>法律意见书草稿</span>
+              <em>AI 草稿 · 可修改后交付</em>
+            </div>
+            <h3>初步法律分析</h3>
+            <p>根据客户目前陈述，公司以绩效不达标为由解除劳动关系，但是否履行了明确的考核、改进、告知及解除程序尚需进一步核验。若公司无法证明解除依据和程序合法，存在被认定为违法解除的风险。</p>
+            <h3>处理建议</h3>
+            <ul>
+              <li>优先补充解除通知、绩效考核材料、工资流水、考勤记录和沟通记录。</li>
+              <li>在材料补齐后，进一步测算可能主张项目，包括赔偿金、未休年假工资及加班费。</li>
+              <li>如协商不成，可考虑准备劳动仲裁申请材料。</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="composer">
+          <textarea id="consultInput" placeholder="粘贴新的劳动争议咨询记录，或补充律师备注..."></textarea>
+          <div class="composer-actions">
+            <button class="ghost-button" id="fillSampleBtn">填入示例</button>
+            <button class="primary-button" id="generateBtn">生成咨询产物</button>
+          </div>
+        </div>
+      </section>
+
+      <aside class="right-panel">
+        <section class="right-card focus">
+          <div class="right-title">当前确认事项</div>
+          <h2>是否可形成初步法律意见书？</h2>
+          <p>当前证据足以生成草稿，但关键材料仍需补充。建议律师确认风险表达后再对外发送。</p>
+          <div class="action-row">
+            <button class="primary-button small" id="confirmBtn">标记已确认</button>
+            <button class="ghost-button small">要求补材料</button>
+          </div>
+        </section>
+
+        <section class="right-card">
+          <div class="right-title">案情结构化</div>
+          <dl class="facts">
+            <div><dt>劳动者</dt><dd>张某</dd></div>
+            <div><dt>用人单位</dt><dd>某科技公司</dd></div>
+            <div><dt>岗位</dt><dd>运营</dd></div>
+            <div><dt>工资</dt><dd>12000 元/月</dd></div>
+            <div><dt>争议</dt><dd>绩效解除是否合法</dd></div>
+          </dl>
+        </section>
+
+        <section class="right-card">
+          <div class="right-title">待补材料清单</div>
+          <ul class="check-list">
+            <li><span class="dot danger"></span>书面解除通知</li>
+            <li><span class="dot danger"></span>绩效考核制度与结果</li>
+            <li><span class="dot"></span>工资流水</li>
+            <li><span class="dot"></span>劳动合同</li>
+            <li><span class="dot"></span>考勤和加班记录</li>
+            <li><span class="dot"></span>微信/邮件沟通记录</li>
+          </ul>
+        </section>
+
+        <section class="right-card">
+          <div class="right-title">交付件</div>
+          <div class="deliverable done">
+            <span>咨询纪要</span>
+            <em>已生成</em>
+          </div>
+          <div class="deliverable done">
+            <span>案情结构化表</span>
+            <em>已生成</em>
+          </div>
+          <div class="deliverable warning">
+            <span>法律意见书草稿</span>
+            <em>待律师确认</em>
+          </div>
+        </section>
+
+        <section class="right-card">
+          <div class="right-title">风险边界</div>
+          <p class="small-text">禁止直接承诺胜诉或确定赔偿金额。所有法律判断须标注“初步判断”或“需进一步核验”。</p>
+        </section>
+      </aside>
+    </main>
+  </div>
+
+  <script src="./app.js"></script>
+</body>
+</html>

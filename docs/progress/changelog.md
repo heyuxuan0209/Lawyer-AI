@@ -2,6 +2,17 @@
 
 ## 2026-05-19
 
+### Added in v0.3-static-prototype
+
+- 新增劳动争议咨询助手静态 MVP。
+- 新增三栏式工作台页面：咨询线程、咨询处理流、案情结构化和交付件。
+- 新增内置劳动争议示例咨询。
+- 新增粘贴咨询文本并生成模拟输出的前端交互。
+
+### Changed in v0.3-static-prototype
+
+- 更新版本索引，将当前版本推进到 `v0.3-static-prototype`。
+
 ### Added in v0.2-output-templates
 
 - 新增劳动争议咨询纪要 Prompt。
