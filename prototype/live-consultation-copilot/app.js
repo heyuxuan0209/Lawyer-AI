@@ -109,7 +109,6 @@ const steps = [
 ];
 
 const startBtn = document.querySelector("#startBtn");
-const nextBtn = document.querySelector("#nextBtn");
 const endBtn = document.querySelector("#endBtn");
 const resetBtn = document.querySelector("#resetBtn");
 const liveFeed = document.querySelector("#liveFeed");
@@ -127,20 +126,93 @@ const outputs = document.querySelector("#outputs");
 let index = 0;
 let seconds = 0;
 let timerId = null;
+let streamId = null;
+let hasEnded = false;
+
+const outputDocs = {
+  minutes: {
+    title: "咨询纪要",
+    body: `
+      <h3>一、客户主要诉求</h3>
+      <p>客户希望判断公司以绩效不达标为由解除劳动关系是否合法，并确认能否主张违法解除赔偿金、未休年假工资和加班费。</p>
+      <h3>二、关键事实</h3>
+      <ul>
+        <li>客户于 2023 年 3 月入职某科技公司，岗位为运营，月工资 12000 元。</li>
+        <li>公司上月以绩效不达标为由要求客户离开，客户称未收到正式解除通知。</li>
+        <li>客户称未签署绩效改进计划，现有劳动合同、工资流水和部分微信记录。</li>
+      </ul>
+      <h3>三、待确认事项</h3>
+      <p>需进一步确认解除通知、绩效考核材料、离职结算文件、完整考勤和加班证据。</p>
+    `
+  },
+  materials: {
+    title: "材料清单",
+    body: `
+      <h3>必须补充</h3>
+      <ul>
+        <li>劳动合同</li>
+        <li>工资流水</li>
+        <li>解除通知或解除沟通记录</li>
+        <li>绩效制度、绩效考核结果、绩效沟通和改进计划</li>
+        <li>关键微信、邮件、工作软件沟通记录</li>
+      </ul>
+      <h3>建议补充</h3>
+      <ul>
+        <li>考勤记录、排班表、项目上线记录</li>
+        <li>年休假记录、社保和个税记录</li>
+        <li>离职结算材料或补偿协议</li>
+      </ul>
+    `
+  },
+  plan: {
+    title: "方案摘要",
+    body: `
+      <h3>初步处理路径</h3>
+      <ol>
+        <li>先固定劳动关系、工资标准和解除事实。</li>
+        <li>重点核验公司绩效解除依据和程序是否合法。</li>
+        <li>补强解除通知、绩效材料、考勤和加班证据。</li>
+        <li>根据材料判断违法解除赔偿金、年假工资、加班费是否一并主张。</li>
+        <li>协商不成时，准备劳动仲裁。</li>
+      </ol>
+      <p class="doc-warning">对外表达建议使用“存在被认定为违法解除的风险”，避免承诺确定结果。</p>
+    `
+  },
+  opinion: {
+    title: "模拟法律意见书格式样例",
+    body: `
+      <p class="doc-warning">模拟格式样例，仅用于向律师确认结构。未经律师审核，不可发送客户。法条与结论均需进一步核验。</p>
+      <h3>一、基本事实</h3>
+      <p>根据客户陈述，其于 2023 年 3 月入职某科技公司，岗位为运营，月工资 12000 元。公司近期以绩效不达标为由要求客户离开，客户称未收到正式解除通知。</p>
+      <h3>二、咨询问题</h3>
+      <ul>
+        <li>公司以绩效不达标为由解除劳动关系是否合法。</li>
+        <li>客户能否主张违法解除赔偿金。</li>
+        <li>客户能否一并主张未休年假工资和加班费。</li>
+      </ul>
+      <h3>三、初步分析</h3>
+      <p>公司以绩效不达标解除劳动关系，需进一步核验绩效制度、考核结果、改进安排及解除程序。若公司无法证明解除依据和程序合法，存在被认定为违法解除的风险。</p>
+      <h3>四、处理建议</h3>
+      <p>建议先补充劳动合同、工资流水、解除沟通记录、绩效材料、考勤及加班证据，再由律师进一步判断具体请求项目和金额测算。</p>
+      <h3>五、风险提示</h3>
+      <p>本样例不构成正式法律意见。具体判断需由律师结合完整证据和现行法律依据确认。</p>
+    `
+  }
+};
 
 startBtn.addEventListener("click", startSession);
-nextBtn.addEventListener("click", playNext);
 endBtn.addEventListener("click", endSession);
 resetBtn.addEventListener("click", resetSession);
+outputs.addEventListener("click", handleOutputClick);
 
 function startSession() {
   liveFeed.innerHTML = "";
   index = 0;
   seconds = 0;
+  hasEnded = false;
   sessionStatus.textContent = "咨询中 · 模拟转记";
   recordDot.classList.add("active");
   startBtn.disabled = true;
-  nextBtn.disabled = false;
   endBtn.disabled = false;
   timer.textContent = "00:00";
   timerId = window.setInterval(() => {
@@ -148,6 +220,7 @@ function startSession() {
     timer.textContent = formatTime(seconds);
   }, 1000);
   playNext();
+  streamId = window.setInterval(playNext, 1800);
 }
 
 function playNext() {
@@ -159,10 +232,6 @@ function playNext() {
   appendUtterance(step);
   updateAssist(step);
   index += 1;
-  if (index >= steps.length) {
-    nextBtn.textContent = "等待结束";
-    nextBtn.disabled = true;
-  }
 }
 
 function appendUtterance(step) {
@@ -210,14 +279,16 @@ function updateAssist(step) {
 }
 
 function endSession() {
+  if (hasEnded) return;
+  hasEnded = true;
   window.clearInterval(timerId);
+  window.clearInterval(streamId);
   timerId = null;
+  streamId = null;
   sessionStatus.textContent = "已结束 · 产物已生成";
   recordDot.classList.remove("active");
   startBtn.disabled = false;
-  nextBtn.disabled = true;
   endBtn.disabled = true;
-  nextBtn.textContent = "下一段";
   markOutputsReady();
   appendSummary();
 }
@@ -243,6 +314,31 @@ function appendSummary() {
       <span>需律师审核</span>
       <span>法条需核验</span>
     </div>
+    <p>右侧“咨询结束后产物”已点亮，点击任一产物可在中间查看内容预览。</p>
+  `;
+  liveFeed.appendChild(article);
+  article.scrollIntoView({ behavior: "smooth", block: "end" });
+}
+
+function handleOutputClick(event) {
+  const target = event.target;
+  if (!(target instanceof HTMLElement)) return;
+  const key = target.dataset.output;
+  if (!key || target.disabled) return;
+  const doc = outputDocs[key];
+  if (!doc) return;
+  appendOutputDoc(doc);
+}
+
+function appendOutputDoc(doc) {
+  const article = document.createElement("article");
+  article.className = "utterance ai output-doc";
+  article.innerHTML = `
+    <div class="utterance-head">
+      <span class="speaker">${doc.title}</span>
+      <span class="time">会后产物</span>
+    </div>
+    ${doc.body}
   `;
   liveFeed.appendChild(article);
   article.scrollIntoView({ behavior: "smooth", block: "end" });
@@ -250,9 +346,12 @@ function appendSummary() {
 
 function resetSession() {
   window.clearInterval(timerId);
+  window.clearInterval(streamId);
   timerId = null;
+  streamId = null;
   index = 0;
   seconds = 0;
+  hasEnded = false;
   liveFeed.innerHTML = `
     <div class="empty-state">
       <h2>点击“开始咨询”播放模拟实时转记</h2>
@@ -263,8 +362,6 @@ function resetSession() {
   timer.textContent = "00:00";
   recordDot.classList.remove("active");
   startBtn.disabled = false;
-  nextBtn.disabled = true;
-  nextBtn.textContent = "下一段";
   endBtn.disabled = true;
   currentFocus.textContent = "等待客户陈述";
   currentFocusDesc.textContent = "开始咨询后，系统会根据转写内容实时更新律师下一步应关注的问题。";

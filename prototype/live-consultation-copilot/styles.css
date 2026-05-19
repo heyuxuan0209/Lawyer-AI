@@ -530,6 +530,40 @@ button:disabled {
   color: var(--green);
 }
 
+.outputs button.ready:hover {
+  border-color: var(--green);
+  background: #dcfce7;
+}
+
+.output-doc {
+  border-left-color: #7c3aed;
+}
+
+.output-doc h3 {
+  margin: 12px 0 6px;
+  font-size: 13px;
+}
+
+.output-doc ul,
+.output-doc ol {
+  margin: 6px 0 0;
+  padding-left: 18px;
+}
+
+.output-doc li {
+  margin-bottom: 6px;
+  color: #374151;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.doc-warning {
+  border-radius: 10px;
+  background: var(--amber-soft);
+  color: #92400e !important;
+  padding: 10px;
+}
+
 .disclaimer {
   margin-top: 9px !important;
   color: #92400e !important;

@@ -14,7 +14,7 @@ prototype/live-consultation-copilot/index.html
 
 - 劳动争议咨询示例
 - 客户 / 律师分角色实时转写流
-- 点击“开始咨询”逐段播放模拟转写
+- 点击“开始咨询”后自动流式播放模拟转写，无需手动点击下一段
 - 右侧同步更新：
   - 案情要点
   - 建议追问
@@ -25,6 +25,7 @@ prototype/live-consultation-copilot/index.html
   - 材料清单
   - 方案摘要
   - 模拟法律意见书格式样例
+- 点击右侧已生成产物按钮，可在中间区域查看内容预览
 
 ## 重要边界
 
@@ -43,4 +44,3 @@ prototype/live-consultation-copilot/index.html
 - 类案检索
 - 数据保存
 - Word 导出
-
