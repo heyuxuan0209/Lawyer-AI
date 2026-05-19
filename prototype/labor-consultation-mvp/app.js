@@ -81,19 +81,40 @@ const fillSampleBtn = document.querySelector("#fillSampleBtn");
 const generateBtn = document.querySelector("#generateBtn");
 const confirmBtn = document.querySelector("#confirmBtn");
 const newConsultBtn = document.querySelector("#newConsultBtn");
+const feedbackLog = document.querySelector("#feedbackLog");
+const feedbackCounts = {
+  "可用": 0,
+  "需修改": 0,
+  "有风险": 0
+};
 
 function addMessage(type, title, subtitle, html) {
   const article = document.createElement("article");
   article.className = `message ${type}`;
+  if (type === "ai" && title.startsWith("Step")) {
+    article.dataset.feedbackCard = title.replace(/^Step \d+\s*/, "");
+  }
   article.innerHTML = `
     <div class="message-head">
       <span>${title}</span>
       <em>${subtitle}</em>
     </div>
     ${html}
+    ${type === "ai" && title.startsWith("Step") ? renderFeedbackBar() : ""}
   `;
   feed.appendChild(article);
   article.scrollIntoView({ behavior: "smooth", block: "end" });
+}
+
+function renderFeedbackBar() {
+  return `
+    <div class="feedback-bar">
+      <span>律师反馈</span>
+      <button data-feedback="可用">可用</button>
+      <button data-feedback="需修改">需修改</button>
+      <button data-feedback="有风险">有风险</button>
+    </div>
+  `;
 }
 
 fillSampleBtn.addEventListener("click", () => {
@@ -162,6 +183,31 @@ document.querySelectorAll(".thread-card").forEach((card) => {
     card.classList.add("active");
   });
 });
+
+document.addEventListener("click", (event) => {
+  const target = event.target;
+  if (!(target instanceof HTMLElement)) return;
+  const feedback = target.dataset.feedback;
+  if (!feedback) return;
+
+  const card = target.closest("[data-feedback-card]");
+  const cardName = card?.dataset.feedbackCard || "未命名产物";
+  const bar = target.closest(".feedback-bar");
+  bar?.querySelectorAll("button").forEach((button) => button.classList.remove("selected"));
+  target.classList.add("selected");
+
+  if (feedbackCounts[feedback] !== undefined) {
+    feedbackCounts[feedback] += 1;
+  }
+  updateFeedbackSummary(cardName, feedback);
+});
+
+function updateFeedbackSummary(cardName, feedback) {
+  document.querySelector("#usableCount").textContent = String(feedbackCounts["可用"]);
+  document.querySelector("#reviseCount").textContent = String(feedbackCounts["需修改"]);
+  document.querySelector("#riskCount").textContent = String(feedbackCounts["有风险"]);
+  feedbackLog.textContent = `最近反馈：${cardName} -> ${feedback}`;
+}
 
 function escapeHtml(value) {
   return value

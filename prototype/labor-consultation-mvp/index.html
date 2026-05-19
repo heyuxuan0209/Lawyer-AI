@@ -110,7 +110,7 @@
             </p>
           </article>
 
-          <article class="message ai">
+          <article class="message ai" data-feedback-card="咨询纪要">
             <div class="message-head">
               <span>咨询纪要</span>
               <em>AI 生成 · 待律师复核</em>
@@ -123,9 +123,15 @@
             </ul>
             <h3>事实经过</h3>
             <p>客户称其于 2023 年 3 月入职某科技公司，岗位为运营，月工资 12000 元。2026 年 4 月，公司以绩效不达标为由口头通知其不用再到岗，未提供书面解除通知，客户称此前未签署绩效改进计划。</p>
+            <div class="feedback-bar">
+              <span>律师反馈</span>
+              <button data-feedback="可用">可用</button>
+              <button data-feedback="需修改">需修改</button>
+              <button data-feedback="有风险">有风险</button>
+            </div>
           </article>
 
-          <article class="message ai">
+          <article class="message ai" data-feedback-card="案情结构化">
             <div class="message-head">
               <span>案情结构化</span>
               <em>Step 2 · 关键事实与证据缺口</em>
@@ -149,9 +155,15 @@
               </div>
             </div>
             <p class="risk-note">需进一步确认：是否存在书面解除通知、绩效制度公示记录、绩效考核结果、客户签收记录、完整考勤和加班审批。</p>
+            <div class="feedback-bar">
+              <span>律师反馈</span>
+              <button data-feedback="可用">可用</button>
+              <button data-feedback="需修改">需修改</button>
+              <button data-feedback="有风险">有风险</button>
+            </div>
           </article>
 
-          <article class="message ai">
+          <article class="message ai" data-feedback-card="待补材料清单">
             <div class="message-head">
               <span>待补材料清单</span>
               <em>Step 3 · 可发送客户</em>
@@ -167,6 +179,12 @@
               <li>考勤记录、排班表、项目上线记录、年休假记录。</li>
               <li>社保、个税、离职结算材料。</li>
             </ul>
+            <div class="feedback-bar">
+              <span>律师反馈</span>
+              <button data-feedback="可用">可用</button>
+              <button data-feedback="需修改">需修改</button>
+              <button data-feedback="有风险">有风险</button>
+            </div>
           </article>
 
           <article class="message lawyer">
@@ -177,7 +195,7 @@
             <textarea id="lawyerNote">重点关注：公司是否能举证绩效不达标，以及解除程序是否合规。意见书里不要直接写“必然违法解除”，使用“存在被认定为违法解除的风险”。</textarea>
           </article>
 
-          <article class="message ai">
+          <article class="message ai" data-feedback-card="初步法律分析">
             <div class="message-head">
               <span>初步法律分析</span>
               <em>Step 4 · 律师内部草稿</em>
@@ -190,9 +208,15 @@
               <li>在材料补齐后，进一步测算可能主张项目，包括赔偿金、未休年假工资及加班费。</li>
               <li>如协商不成，可考虑准备劳动仲裁申请材料。</li>
             </ul>
+            <div class="feedback-bar">
+              <span>律师反馈</span>
+              <button data-feedback="可用">可用</button>
+              <button data-feedback="需修改">需修改</button>
+              <button data-feedback="有风险">有风险</button>
+            </div>
           </article>
 
-          <article class="message ai">
+          <article class="message ai" data-feedback-card="法律意见书草稿">
             <div class="message-head">
               <span>法律意见书草稿</span>
               <em>Step 5 · 可修改后交付</em>
@@ -205,6 +229,12 @@
             </ul>
             <h3>风险提示</h3>
             <p>本意见书为基于现有咨询信息形成的初步草稿，最终判断需结合完整证据材料。违法解除判断取决于公司能否证明解除依据和程序合法；加班费和未休年假工资请求存在较强证据依赖。</p>
+            <div class="feedback-bar">
+              <span>律师反馈</span>
+              <button data-feedback="可用">可用</button>
+              <button data-feedback="需修改">需修改</button>
+              <button data-feedback="有风险">有风险</button>
+            </div>
           </article>
         </div>
 
@@ -273,6 +303,16 @@
             <span>法律意见书草稿</span>
             <em>待律师确认</em>
           </div>
+        </section>
+
+        <section class="right-card">
+          <div class="right-title">律师反馈汇总</div>
+          <div class="feedback-summary">
+            <div><strong id="usableCount">0</strong><span>可用</span></div>
+            <div><strong id="reviseCount">0</strong><span>需修改</span></div>
+            <div><strong id="riskCount">0</strong><span>有风险</span></div>
+          </div>
+          <div class="feedback-log" id="feedbackLog">尚未记录反馈</div>
         </section>
 
         <section class="right-card">

@@ -2,6 +2,17 @@
 
 ## 2026-05-19
 
+### Added in v0.5-feedback-loop
+
+- 原型每个 AI 产物增加律师反馈按钮：可用 / 需修改 / 有风险。
+- 右侧增加反馈汇总和最近反馈记录。
+- 新增 `feedback-loop-v0.5.md`，记录反馈闭环设计。
+
+### Changed in v0.5-feedback-loop
+
+- 更新版本索引，将当前版本推进到 `v0.5-feedback-loop`。
+- 更新原型 README，补充律师反馈验证问题。
+
 ### Added in v0.4-demo-flow
 
 - 新增脱敏劳动争议咨询样本。
