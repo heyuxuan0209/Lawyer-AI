@@ -2,6 +2,18 @@
 
 ## 2026-05-19
 
+### Added in v0.4-demo-flow
+
+- 新增脱敏劳动争议咨询样本。
+- 新增 5 个 demo 输出：咨询纪要、案情结构化、待补材料清单、初步法律分析、法律意见书草稿。
+- 新增 `demo-flow-v0.4.md`，记录五步生成流程。
+- 原型按钮改为按 5 个 Prompt 步骤展示 demo 输出。
+
+### Changed in v0.4-demo-flow
+
+- 更新 `.gitignore`，允许精选 demo 输出进入版本管理。
+- 更新版本索引，将当前版本推进到 `v0.4-demo-flow`。
+
 ### Added in v0.3-static-prototype
 
 - 新增劳动争议咨询助手静态 MVP。

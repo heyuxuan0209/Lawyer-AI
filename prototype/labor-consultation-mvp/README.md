@@ -17,7 +17,7 @@ prototype/labor-consultation-mvp/index.html
 - 中间咨询处理流
 - 右侧案情结构化、材料清单、交付件和律师确认
 - 内置劳动争议示例咨询
-- 支持粘贴咨询文本并生成模拟输出
+- 支持粘贴咨询文本并按 5 个 Prompt 步骤展示 demo 输出
 
 ## 暂未实现
 
@@ -36,4 +36,4 @@ prototype/labor-consultation-mvp/index.html
 2. 右侧案情结构化字段是否够用。
 3. 交付件顺序是否合理。
 4. 律师是否愿意把真实脱敏咨询记录粘贴进来试跑。
-
+5. 五步产物顺序是否符合咨询后整理习惯。

@@ -18,4 +18,4 @@ data/raw/*
 # Generated outputs can be regenerated unless explicitly curated
 data/outputs/*
 !data/outputs/.gitkeep
-
+!data/outputs/labor-dispute-sample-*.md
