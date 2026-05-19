@@ -105,6 +105,11 @@
           <ul class="suggestions" id="questionList">
             <li>等待转写内容后生成追问。</li>
           </ul>
+          <div class="feedback-row" data-feedback="question">
+            <button>有用</button>
+            <button>干扰</button>
+            <button>错误</button>
+          </div>
         </section>
 
         <section class="assist-card">
@@ -115,12 +120,22 @@
               <p>法条卡为模拟展示，用于确认推送时机和卡片格式，不作为正式法律依据。</p>
             </div>
           </div>
+          <div class="feedback-row" data-feedback="law">
+            <button>相关</button>
+            <button>不相关</button>
+            <button>太早/太晚</button>
+          </div>
         </section>
 
         <section class="assist-card">
           <div class="card-title">方案草稿</div>
           <div class="plan-draft" id="planDraft">
             <p>咨询开始后，系统会随着事实补齐持续形成方案草稿。</p>
+          </div>
+          <div class="feedback-row" data-feedback="plan">
+            <button>可用</button>
+            <button>需修改</button>
+            <button>有风险</button>
           </div>
         </section>
 
@@ -134,6 +149,15 @@
             <button disabled data-output="opinion">模拟法律意见书格式样例</button>
           </div>
           <p class="disclaimer">法律意见书为模拟格式样例，仅用于向律师确认结构。未经律师审核，不可发送客户。</p>
+        </section>
+
+        <section class="assist-card">
+          <div class="card-title">给律师看的验证问题</div>
+          <div class="demo-questions">
+            <p>1. 右侧提示是在帮你谈案，还是打断你谈案？</p>
+            <p>2. 法条卡出现的时机、颗粒度是否合适？</p>
+            <p>3. 结束后最值得保留的产物是哪一个？</p>
+          </div>
         </section>
       </aside>
     </main>

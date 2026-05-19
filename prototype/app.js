@@ -153,12 +153,18 @@ const questionList = document.querySelector("#questionList");
 const lawCards = document.querySelector("#lawCards");
 const planDraft = document.querySelector("#planDraft");
 const outputs = document.querySelector("#outputs");
+const feedbackRows = document.querySelectorAll(".feedback-row");
 
 let index = 0;
 let seconds = 0;
 let timerId = null;
 let streamId = null;
 let hasEnded = false;
+const feedbackState = {
+  question: null,
+  law: null,
+  plan: null
+};
 
 const outputDocs = {
   minutes: {
@@ -184,7 +190,6 @@ const outputDocs = {
         <li>劳动合同</li>
         <li>工资流水</li>
         <li>主管微信通知原文及上下文截图</li>
-        <li>绩效制度、绩效考核结果、绩效沟通和改进计划</li>
         <li>绩效制度、绩效考核结果、绩效沟通和改进计划</li>
         <li>关键微信、邮件、工作软件沟通记录</li>
       </ul>
@@ -236,6 +241,7 @@ startBtn.addEventListener("click", startSession);
 endBtn.addEventListener("click", endSession);
 resetBtn.addEventListener("click", resetSession);
 outputs.addEventListener("click", handleOutputClick);
+feedbackRows.forEach((row) => row.addEventListener("click", handleFeedbackClick));
 
 function startSession() {
   liveFeed.innerHTML = "";
@@ -284,15 +290,18 @@ function appendUtterance(step) {
 function updateAssist(step) {
   currentFocus.textContent = step.focus;
   currentFocusDesc.textContent = step.focusDesc;
+  pulseCard(currentFocus.closest(".assist-card"));
 
   if (step.facts) {
     factGrid.innerHTML = Object.entries(step.facts)
       .map(([key, value]) => `<div><span>${key}</span><strong>${value}</strong></div>`)
       .join("");
+    pulseCard(factGrid.closest(".assist-card"));
   }
 
   if (step.questions?.length) {
     questionList.innerHTML = step.questions.map((item) => `<li>${item}</li>`).join("");
+    pulseCard(questionList.closest(".assist-card"));
   }
 
   if (step.laws?.length) {
@@ -303,11 +312,22 @@ function updateAssist(step) {
         <em>${law.status}</em>
       </div>
     `).join("");
+    pulseCard(lawCards.closest(".assist-card"));
   }
 
   if (step.plan?.length) {
     planDraft.innerHTML = `<ul>${step.plan.map((item) => `<li>${item}</li>`).join("")}</ul>`;
+    pulseCard(planDraft.closest(".assist-card"));
   }
+}
+
+function pulseCard(card) {
+  if (!card) return;
+  card.classList.remove("updated");
+  window.requestAnimationFrame(() => {
+    card.classList.add("updated");
+    window.setTimeout(() => card.classList.remove("updated"), 900);
+  });
 }
 
 function endSession() {
@@ -330,6 +350,7 @@ function markOutputsReady() {
     button.disabled = false;
     button.classList.add("ready");
   });
+  pulseCard(outputs.closest(".assist-card"));
 }
 
 function appendSummary() {
@@ -360,6 +381,38 @@ function handleOutputClick(event) {
   const doc = outputDocs[key];
   if (!doc) return;
   appendOutputDoc(doc);
+}
+
+function handleFeedbackClick(event) {
+  const target = event.target;
+  if (!(target instanceof HTMLButtonElement)) return;
+  const row = target.closest(".feedback-row");
+  if (!row) return;
+  const key = row.dataset.feedback;
+  if (!key) return;
+  feedbackState[key] = target.textContent;
+  row.querySelectorAll("button").forEach((button) => button.classList.remove("selected"));
+  target.classList.add("selected");
+  appendFeedbackNote(key, target.textContent);
+}
+
+function appendFeedbackNote(key, value) {
+  const labels = {
+    question: "追问建议",
+    law: "模拟法条卡",
+    plan: "方案草稿"
+  };
+  const article = document.createElement("article");
+  article.className = "utterance ai feedback-note";
+  article.innerHTML = `
+    <div class="utterance-head">
+      <span class="speaker">律师反馈记录</span>
+      <span class="time">${formatTime(seconds)}</span>
+    </div>
+    <p>${labels[key]}：${value}</p>
+  `;
+  liveFeed.appendChild(article);
+  article.scrollIntoView({ behavior: "smooth", block: "end" });
 }
 
 function appendOutputDoc(doc) {
@@ -414,6 +467,12 @@ function resetSession() {
   outputs.querySelectorAll("button").forEach((button) => {
     button.disabled = true;
     button.classList.remove("ready");
+  });
+  Object.keys(feedbackState).forEach((key) => {
+    feedbackState[key] = null;
+  });
+  feedbackRows.forEach((row) => {
+    row.querySelectorAll("button").forEach((button) => button.classList.remove("selected"));
   });
 }
 
