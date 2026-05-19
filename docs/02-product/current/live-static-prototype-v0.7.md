@@ -17,7 +17,7 @@
 ## 原型路径
 
 ```text
-prototype/live-consultation-copilot/index.html
+prototype/index.html
 ```
 
 ## 页面结构
@@ -54,6 +54,20 @@ prototype/live-consultation-copilot/index.html
 - 右侧随双方对话自动同步更新。
 - 点击“结束咨询”后，右侧四个产物按钮点亮。
 - 点击产物按钮后，在中间转写区追加展示对应内容预览。
+
+## 入口整理
+
+为避免演示时打开旧版本，原型入口已整理为唯一入口：
+
+```text
+prototype/index.html
+```
+
+旧版咨询后整理原型和 v0.7 初始目录已移动到：
+
+```text
+prototype/archive/
+```
 
 ## 法律意见书边界
 

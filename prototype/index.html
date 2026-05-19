@@ -3,108 +3,141 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Lawyer-AI 原型入口</title>
-  <style>
-    body {
-      margin: 0;
-      min-height: 100vh;
-      display: grid;
-      place-items: center;
-      background: #f5f7fa;
-      color: #152033;
-      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    }
-    main {
-      width: min(920px, calc(100vw - 32px));
-    }
-    h1 {
-      margin: 0 0 8px;
-      font-size: 28px;
-      letter-spacing: 0;
-    }
-    p {
-      margin: 0 0 22px;
-      color: #64748b;
-      line-height: 1.6;
-    }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 16px;
-    }
-    a {
-      display: block;
-      min-height: 220px;
-      padding: 22px;
-      border-radius: 18px;
-      background: #fff;
-      border: 1px solid #dfe5ec;
-      color: inherit;
-      text-decoration: none;
-      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
-    }
-    a.primary {
-      border-color: #111827;
-      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.12);
-    }
-    .tag {
-      display: inline-block;
-      border-radius: 999px;
-      padding: 5px 9px;
-      margin-bottom: 14px;
-      background: #111827;
-      color: #fff;
-      font-size: 12px;
-      font-weight: 800;
-    }
-    .muted {
-      background: #f1f5f9;
-      color: #64748b;
-    }
-    h2 {
-      margin: 0 0 10px;
-      font-size: 20px;
-    }
-    ul {
-      margin: 12px 0 0;
-      padding-left: 18px;
-      color: #475569;
-      line-height: 1.8;
-      font-size: 14px;
-    }
-    @media (max-width: 760px) {
-      .grid {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
+  <title>实时谈案 Copilot · 劳动争议</title>
+  <link rel="stylesheet" href="./styles.css" />
 </head>
 <body>
-  <main>
-    <h1>Lawyer-AI 原型入口</h1>
-    <p>当前主线是“实时谈案 Copilot”。如果要给律师朋友演示，请打开左侧这个新版本。</p>
-    <div class="grid">
-      <a class="primary" href="./live-consultation-copilot/index.html">
-        <span class="tag">推荐演示</span>
-        <h2>实时谈案 Copilot</h2>
-        <p>劳动争议为例，模拟客户/律师分角色实时转写，右侧同步更新案情要点、追问建议、模拟法条卡和方案草稿。</p>
-        <ul>
-          <li>点击“开始咨询”逐段播放</li>
-          <li>点击“结束咨询”生成会后产物</li>
-          <li>含模拟法律意见书格式样例免责声明</li>
-        </ul>
-      </a>
-      <a href="./labor-consultation-mvp/index.html">
-        <span class="tag muted">旧版归档</span>
-        <h2>咨询后整理 MVP</h2>
-        <p>旧版原型，重点是咨询结束后生成纪要、结构化、材料清单、法律分析和意见书草稿。</p>
-        <ul>
-          <li>不含实时语音转记流</li>
-          <li>不含实时法条推送</li>
-          <li>保留作会后沉淀模块参考</li>
-        </ul>
-      </a>
-    </div>
-  </main>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark">律</div>
+        <div>
+          <div class="brand-title">实时谈案 Copilot</div>
+          <div class="brand-subtitle">劳动争议 · 模拟实时咨询</div>
+        </div>
+      </div>
+      <div class="session-status">
+        <span class="record-dot" id="recordDot"></span>
+        <span id="sessionStatus">未开始</span>
+      </div>
+      <div class="top-actions">
+        <button class="secondary" id="resetBtn">重置</button>
+        <button class="primary" id="startBtn">开始咨询</button>
+        <button class="danger" id="endBtn" disabled>结束咨询</button>
+      </div>
+    </header>
+
+    <main class="workspace">
+      <aside class="left-panel">
+        <div class="panel-title">咨询会话</div>
+        <section>
+          <div class="section-label live">正在咨询</div>
+          <button class="thread active">
+            <strong>张某｜绩效解除争议</strong>
+            <span>劳动争议 · 付费咨询</span>
+            <em>实时转记待开始</em>
+          </button>
+        </section>
+        <section>
+          <div class="section-label">待补材料</div>
+          <button class="thread">
+            <strong>李某｜拖欠工资</strong>
+            <span>缺工资流水</span>
+            <em>等待客户补充</em>
+          </button>
+        </section>
+        <section>
+          <div class="section-label">已结束</div>
+          <button class="thread">
+            <strong>王某｜加班费</strong>
+            <span>已生成纪要</span>
+            <em>方案摘要已归档</em>
+          </button>
+        </section>
+      </aside>
+
+      <section class="transcript-panel">
+        <div class="case-header">
+          <div>
+            <p>咨询线程 LD-LIVE-001</p>
+            <h1>张某与某科技公司劳动合同解除咨询</h1>
+            <div class="case-tags">
+              <span>劳动争议</span>
+              <span>实时语音转记</span>
+              <span>模拟法条卡</span>
+              <span>方案形成中</span>
+            </div>
+          </div>
+          <div class="timer" id="timer">00:00</div>
+        </div>
+
+        <div class="live-feed" id="liveFeed">
+          <div class="empty-state">
+            <h2>点击“开始咨询”播放模拟实时转记</h2>
+            <p>中间会逐段出现客户和律师对话，右侧同步更新案情要点、追问建议、法律条款和方案草稿。</p>
+          </div>
+        </div>
+
+        <div class="consult-controls">
+          <div class="hint">演示模式：不接真实麦克风。点击“开始咨询”后，客户和律师对话会自动流式输出，右侧同步更新。</div>
+        </div>
+      </section>
+
+      <aside class="assist-panel">
+        <section class="assist-card focus">
+          <div class="card-title">当前辅助重点</div>
+          <h2 id="currentFocus">等待客户陈述</h2>
+          <p id="currentFocusDesc">开始咨询后，系统会根据转写内容实时更新律师下一步应关注的问题。</p>
+        </section>
+
+        <section class="assist-card">
+          <div class="card-title">已识别案情要点</div>
+          <div class="fact-grid" id="factGrid">
+            <div><span>入职时间</span><strong>未识别</strong></div>
+            <div><span>工资标准</span><strong>未识别</strong></div>
+            <div><span>解除方式</span><strong>未识别</strong></div>
+            <div><span>现有证据</span><strong>未识别</strong></div>
+          </div>
+        </section>
+
+        <section class="assist-card">
+          <div class="card-title">建议追问</div>
+          <ul class="suggestions" id="questionList">
+            <li>等待转写内容后生成追问。</li>
+          </ul>
+        </section>
+
+        <section class="assist-card">
+          <div class="card-title">模拟法条卡</div>
+          <div id="lawCards">
+            <div class="law-card muted">
+              <strong>尚未触发</strong>
+              <p>法条卡为模拟展示，用于确认推送时机和卡片格式，不作为正式法律依据。</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="assist-card">
+          <div class="card-title">方案草稿</div>
+          <div class="plan-draft" id="planDraft">
+            <p>咨询开始后，系统会随着事实补齐持续形成方案草稿。</p>
+          </div>
+        </section>
+
+        <section class="assist-card">
+          <div class="card-title">咨询结束后产物</div>
+          <div class="outputs" id="outputs">
+            <button disabled data-output="minutes">咨询纪要</button>
+            <button disabled data-output="materials">材料清单</button>
+            <button disabled data-output="plan">方案摘要</button>
+            <button disabled data-output="opinion">模拟法律意见书格式样例</button>
+          </div>
+          <p class="disclaimer">法律意见书为模拟格式样例，仅用于向律师确认结构。未经律师审核，不可发送客户。</p>
+        </section>
+      </aside>
+    </main>
+  </div>
+
+  <script src="./app.js"></script>
 </body>
 </html>

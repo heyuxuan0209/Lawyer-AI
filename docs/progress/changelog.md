@@ -14,6 +14,7 @@
 
 - 更新版本索引，将当前版本推进到 `v0.7-live-static-prototype`。
 - 法律意见书明确定位为模拟格式样例，未经律师审核不可发送客户。
+- 整理原型入口，`prototype/index.html` 成为唯一演示页面，旧版本移动到 `prototype/archive/`。
 
 ### Added in v0.6-live-workspace-plan
 

@@ -1,29 +1,24 @@
 # Prototype
 
-后续产品原型代码放在这里。
-
-建议第一版：
-
-```text
-prototype/labor-consultation-mvp/
-```
-
-当前推荐演示入口：
+当前只保留一个演示入口：
 
 ```text
 prototype/index.html
 ```
 
-当前主线原型：
+该页面就是实时谈案 Copilot 原型：
 
 ```text
-prototype/live-consultation-copilot/index.html
+劳动争议咨询
+-> 客户 / 律师分角色自动流式转写
+-> 右侧同步更新案情要点、追问建议、模拟法条卡、方案草稿
+-> 结束咨询后生成咨询纪要、材料清单、方案摘要、模拟法律意见书格式样例
 ```
 
-形态：
+归档原型放在：
 
-- Next.js 或 Vite 单页应用
-- 三栏式工作台
-- 静态示例数据
-- 粘贴咨询文本
-- 生成模拟输出
+```text
+prototype/archive/
+```
+
+演示时不要打开归档目录，直接打开 `prototype/index.html`。
