@@ -253,6 +253,7 @@ function startSession() {
   index = 0;
   seconds = 0;
   hasEnded = false;
+  setFeedbackMode(false);
   sessionStatus.textContent = "咨询中 · 模拟转记";
   recordDot.classList.add("active");
   startBtn.disabled = true;
@@ -373,6 +374,7 @@ function appendSummary() {
       <span>法条需核验</span>
     </div>
     <p>右侧“咨询结束后产物”已点亮，点击任一产物可在中间查看内容预览。</p>
+    <p>如需收集律师反馈，可点击顶部“反馈模式”，完整回看后再评价追问、法条卡和方案草稿。</p>
   `;
   liveFeed.appendChild(article);
   article.scrollIntoView({ behavior: "smooth", block: "end" });
@@ -431,7 +433,7 @@ function setFeedbackMode(nextValue) {
   feedbackModeBtn.textContent = feedbackMode ? "反馈模式：开" : "反馈模式：关";
   feedbackModeBtn.setAttribute("aria-pressed", String(feedbackMode));
   modeHint.textContent = feedbackMode
-    ? "反馈模式已开启：演示时可让律师直接标记追问、法条卡和方案草稿是否有用。"
+    ? "反馈模式已开启：建议完整看完咨询后，再让律师回看并评价追问、法条卡和方案草稿。"
     : "演示模式：不接真实麦克风。点击“开始咨询”后，客户和律师对话会自动流式输出，右侧同步更新。";
 }
 

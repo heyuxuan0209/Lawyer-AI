@@ -194,6 +194,16 @@ button:disabled {
   border-color: var(--line);
 }
 
+.thread.disabled-thread {
+  opacity: 0.48;
+  cursor: not-allowed;
+}
+
+.thread.disabled-thread:hover {
+  background: transparent;
+  border-color: transparent;
+}
+
 .thread.active {
   background: var(--brand);
   color: #fff;
@@ -254,6 +264,19 @@ button:disabled {
 .case-header h1 {
   margin: 0;
   font-size: 18px;
+}
+
+.demo-notice {
+  margin-top: 8px;
+  max-width: 760px;
+  border: 1px solid #fed7aa;
+  border-radius: 10px;
+  background: #fff7ed;
+  color: #9a3412;
+  padding: 8px 10px;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.45;
 }
 
 .case-tags {
@@ -522,14 +545,10 @@ button:disabled {
 }
 
 .feedback-row {
-  display: none;
+  display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 6px;
   margin-top: 10px;
-}
-
-.feedback-mode .feedback-row {
-  display: grid;
 }
 
 .feedback-row button {
@@ -629,12 +648,8 @@ button:disabled {
 }
 
 .demo-questions {
-  display: none;
-  gap: 8px;
-}
-
-.feedback-mode .demo-questions {
   display: grid;
+  gap: 8px;
 }
 
 .feedback-guide {
@@ -649,6 +664,24 @@ button:disabled {
   border-left: 3px solid var(--blue);
   background: #f8fafc;
   padding: 8px 9px;
+}
+
+.review-grid {
+  display: grid;
+  gap: 10px;
+  margin: 10px 0 12px;
+}
+
+.review-grid > div {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #f8fafc;
+  padding: 9px;
+}
+
+.review-grid strong {
+  color: #334155;
+  font-size: 12px;
 }
 
 @media (max-width: 1180px) {
